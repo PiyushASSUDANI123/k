@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>3D Carousel</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(to right, #2c5364, #203a43, #0f2027);
+      height: 100vh;
+      font-family: 'Segoe UI', sans-serif;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    #particles-js {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+    }
+
+    .carousel-wrapper {
+      position: relative;
+      width: 100%;
+      max-width: 90vw;
+      height: 75vh;
+      perspective: 800px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 2;
+    }
+
+    .carousel {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      transform-style: preserve-3d;
+      animation: spin 60s linear infinite;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .item {
+      position: absolute;
+      transform: rotateY(calc(var(--i) * 72deg)) translateZ(200px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .item img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #ffffff66;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+      margin-bottom: 8px;
+    }
+
+    .title {
+      font-size: 14px;
+      font-weight: bold;
+      color: #fffacd;
+      margin-bottom: 4px;
+    }
+
+    .quote {
+      font-size: 11px;
+      padding: 0 10px;
+      color: #eee;
+      font-style: italic;
+    }
+
+    @keyframes spin {
+      from {
+        transform: rotateY(0deg);
+      }
+      to {
+        transform: rotateY(360deg);
+      }
+    }
+
+    #playMusicBtn {
+      position: fixed;
+      bottom: 16px;
+      right: 16px;
+      padding: 10px 16px;
+      font-size: 14px;
+      border: none;
+      border-radius: 25px;
+      background-color: #fff;
+      color: #333;
+      z-index: 999;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background Particles -->
+  <div id="particles-js"></div>
+
+  <!-- Carousel -->
+  <div class="carousel-wrapper">
+    <div class="carousel">
+      <div class="item" style="--i:0">
+        <div class="title">Inspiration</div>
+        <img src="DSC_6190.JPG" alt="1" />
+        <div class="quote">"Be yourself; everyone else is already taken."</div>
+      </div>
+      <div class="item" style="--i:1">
+        <div class="title">Dream</div>
+        <img src="kk.jpg" alt="2" />
+        <div class="quote">"Believe in your infinite potential."</div>
+      </div>
+      <div class="item" style="--i:2">
+        <div class="title">Beginnings</div>
+        <img src="ff.jpg" alt="3" />
+        <div class="quote">"Start where you are. Use what you have."</div>
+      </div>
+      <div class="item" style="--i:3">
+        <div class="title">Wisdom</div>
+        <img src="jh.jpg" alt="4" />
+        <div class="quote">"Knowledge speaks, but wisdom listens."</div>
+      </div>
+      <div class="item" style="--i:4">
+        <div class="title">Happiness</div>
+        <img src="download.jpg" alt="5" />
+        <div class="quote">"Happiness is a direction, not a place."</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Play Music Button -->
+  <button id="playMusicBtn">🎵 Play Music</button>
+
+  <!-- Audio Element with your local file -->
+  <audio id="bgMusic" loop>
+    <source src="bg music.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <!-- Background Particles JS -->
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <script>
+    particlesJS("particles-js", {
+      particles: {
+        number: { value: 60 },
+        size: { value: 2.5 },
+        color: { value: "#ffffff" },
+        line_linked: {
+          enable: true,
+          opacity: 0.15
+        },
+        move: {
+          enable: true,
+          speed: 1
+        }
+      },
+      interactivity: {
+        events: {
+          onhover: {
+            enable: true,
+            mode: "repulse"
+          }
+        }
+      }
+    });
+
+    // Music toggle
+    const audio = document.getElementById("bgMusic");
+    const btn = document.getElementById("playMusicBtn");
+    let isPlaying = false;
+
+    btn.addEventListener("click", function () {
+      if (!isPlaying) {
+        audio.play();
+        btn.textContent = "⏸️ Pause Music";
+      } else {
+        audio.pause();
+        btn.textContent = "🎵 Play Music";
+      }
+      isPlaying = !isPlaying;
+    });
+  </script>
+
+</body>
+</html>
